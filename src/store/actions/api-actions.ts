@@ -4,17 +4,31 @@ import { errorHandler } from './../../services/errorHandler';
 import { APIRoute } from './../../consts';
 import { MovieData } from './../../types/movie.model';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loadMovieCatalog } from '../movie-data/movie-data';
+import { loadMovieCatalog, loadPromoMovie } from '../movie-data/movie-data';
 
 export const fetchMovieCatalogAction = createAsyncThunk<
   void,
   undefined,
-  { extra: { api: AxiosInstance }, dispatch: AppDispatch }
+  { extra: { api: AxiosInstance }; dispatch: AppDispatch }
 >('MovieData/fetchMovieCatalog', async (_, { extra, dispatch }) => {
   const { api } = extra;
   try {
     const { data } = await api.get<MovieData[]>(APIRoute.Movies);
     dispatch(loadMovieCatalog(data));
+  } catch (error) {
+    errorHandler(error);
+  }
+});
+
+export const fetchPromoMovieAction = createAsyncThunk<
+  void,
+  undefined,
+  { extra: { api: AxiosInstance }; dispatch: AppDispatch }
+>('MovieData/fetchPromoMovieAction', async (_, { extra, dispatch }) => {
+  const { api } = extra;
+  try {
+    const { data } = await api.get<MovieData>(APIRoute.Promo);
+    dispatch(loadPromoMovie(data));
   } catch (error) {
     errorHandler(error);
   }

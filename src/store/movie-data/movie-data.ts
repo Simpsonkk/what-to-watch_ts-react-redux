@@ -5,6 +5,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: FilmDataState = {
   movieCatalog: [],
+  promoMovie: null,
+  isDataLoaded: false,
 };
 
 export const movieData = createSlice({
@@ -13,8 +15,12 @@ export const movieData = createSlice({
   reducers: {
     loadMovieCatalog: (state, action: PayloadAction<MovieData[]>) => {
       state.movieCatalog = action.payload;
+      state.isDataLoaded = true;
+    },
+    loadPromoMovie: (state, action: PayloadAction<MovieData>) => {
+      state.promoMovie = action.payload;
     },
   },
 });
 
-export const { loadMovieCatalog } = movieData.actions;
+export const { loadMovieCatalog, loadPromoMovie } = movieData.actions;

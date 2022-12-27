@@ -2,9 +2,14 @@
 import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppRoute } from '../../consts';
-import { useAppDispatch } from '../../hooks';
-import { fetchMovieCatalogAction } from '../../store/actions/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchMovieCatalogAction,
+  fetchPromoMovieAction
+} from '../../store/actions/api-actions';
+import { getLoadedDataStatus } from '../../store/movie-data/selectors';
 import AddReview from '../add-review/add-review';
+import Loader from '../loader/loader';
 import MainPage from '../main-page/main-page';
 import MoviePage from '../movie-page/movie-page';
 import MyMovieList from '../my-movie-list/my-movie-list';
@@ -41,15 +46,24 @@ const routing = createBrowserRouter([
     path: AppRoute.NotFound,
     element: <NotFoundPage />,
   },
-
 ]);
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(fetchPromoMovieAction());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(fetchMovieCatalogAction());
   }, [dispatch]);
+
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+
+  if (!isDataLoaded) {
+    return <Loader />;
+  }
 
   return <RouterProvider router={routing} />;
 }

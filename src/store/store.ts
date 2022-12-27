@@ -1,4 +1,4 @@
-import { rootReducer } from './reducers/root-reducer';
+import { rootReducer } from './root-reducer';
 import { createAPI } from './../services/api';
 import { configureStore } from '@reduxjs/toolkit';
 

@@ -1,14 +1,14 @@
+import { useAppSelector } from '../../hooks';
+import { getPromoMovie } from '../../store/movie-data/selectors';
+import BackgroundImg from '../background-img/background-img';
 import Header from '../header/header';
 
 function PromoMovie() {
+  const promoBackground = useAppSelector(getPromoMovie);
+
   return (
     <section className="film-card">
-      <div className="film-card__bg">
-        <img
-          src="img/bg-the-grand-budapest-hotel.jpg"
-          alt="The Grand Budapest Hotel"
-        />
-      </div>
+      <BackgroundImg img={promoBackground!.backgroundImage} title={promoBackground!.name} />
       <h1 className="visually-hidden">WTW</h1>
       <Header />
       <div className="film-card__wrap">

@@ -5,7 +5,7 @@ export enum AppRoute {
   Movie = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
-  NotFound = '*'
+  NotFound = '*',
 }
 
 export enum HttpCode {
@@ -16,8 +16,24 @@ export enum HttpCode {
 
 export enum APIRoute {
   Movies = '/films',
+  Promo = '/promo'
 }
 
 export enum NameSpace {
   Movies = 'movieData',
 }
+
+export const DEFAULT_GENRE = 'All genres';
+
+export const GENRES = [
+  DEFAULT_GENRE,
+  'Adventure',
+  'Crime',
+  'Drama',
+  'Fantasy',
+  'Action',
+  'Comedy',
+  'Thriller',
+];
+
+export const INITIAL_MOVIE_AMOUNT = 8;
