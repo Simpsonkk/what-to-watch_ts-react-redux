@@ -1,29 +1,46 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchSelectedMovieAction } from '../../store/actions/api-actions';
+import { getCurrentMovie } from '../../store/movie-data/selectors';
+import BackgroundImg from '../background-img/background-img';
 import CatalogLikeThis from '../catalog-like-this/catalog-like-this';
 import Footer from '../footer/footer';
 import Header from '../header/header';
+import Loader from '../loader/loader';
 import MovieDescription from '../movie-description/movie-description';
 
 function MoviePage() {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchSelectedMovieAction(params.id));
+  }, [dispatch, params.id]);
+
+  const currentMovie = useAppSelector(getCurrentMovie);
+
+  if (!currentMovie) {
+    return <Loader />;
+  }
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img
-              src="img/bg-the-grand-budapest-hotel.jpg"
-              alt="The Grand Budapest Hotel"
-            />
-          </div>
+          <BackgroundImg
+            movieImg={currentMovie.backgroundImage}
+            movieTitle={currentMovie.name}
+          />
           <h1 className="visually-hidden">WTW</h1>
           <Header />
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{currentMovie.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{currentMovie.genre}</span>
+                <span className="film-card__year">{currentMovie.released}</span>
               </p>
               <div className="film-card__buttons">
                 <button
@@ -55,13 +72,13 @@ function MoviePage() {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={currentMovie.posterImage}
+                alt={currentMovie.name}
                 width="218"
                 height="327"
               />
             </div>
-            <MovieDescription />
+            <MovieDescription currentMovie={currentMovie} />
           </div>
         </div>
       </section>

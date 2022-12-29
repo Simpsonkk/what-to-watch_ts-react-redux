@@ -9,12 +9,15 @@ import MovieGenres from '../movie-genres/movie-genres';
 function MovieCatalog() {
   const [movieAmount, setMovieAmount] = useState<number>(INITIAL_MOVIE_AMOUNT);
   const [genre, setGenre] = useState<string>(DEFAULT_GENRE);
-
   const movies = useAppSelector(getMovieCatalog);
 
-  const filteredMovie = genre === DEFAULT_GENRE ? movies : filterMovie(movies, genre);
-  const getCurrentGenre = (currentGenre: string): void =>
+  const filteredMovie =
+    genre === DEFAULT_GENRE ? movies : filterMovie(movies, genre);
+
+  const getCurrentGenre = (currentGenre: string): void => {
     setGenre(currentGenre);
+    setMovieAmount(INITIAL_MOVIE_AMOUNT);
+  };
 
   return (
     <>
@@ -24,15 +27,18 @@ function MovieCatalog() {
           .map((movie) => (
             <MovieCard
               key={movie.id}
-              img={movie.previewImage}
-              title={movie.name}
+              movieId={movie.id}
+              movieImg={movie.previewImage}
+              movieTitle={movie.name}
             />
           ))
           .slice(0, movieAmount)}
       </div>
       <div
         className={
-          movieAmount < filteredMovie.length ? 'catalog__more' : 'visually-hidden'
+          movieAmount < filteredMovie.length
+            ? 'catalog__more'
+            : 'visually-hidden'
         }
       >
         <button

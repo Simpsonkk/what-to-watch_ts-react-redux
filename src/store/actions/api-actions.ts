@@ -4,7 +4,11 @@ import { errorHandler } from './../../services/errorHandler';
 import { APIRoute } from './../../consts';
 import { MovieData } from './../../types/movie.model';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loadMovieCatalog, loadPromoMovie } from '../movie-data/movie-data';
+import {
+  loadMovieCatalog,
+  loadPromoMovie,
+  loadSelectedMovie
+} from '../movie-data/movie-data';
 
 export const fetchMovieCatalogAction = createAsyncThunk<
   void,
@@ -29,6 +33,22 @@ export const fetchPromoMovieAction = createAsyncThunk<
   try {
     const { data } = await api.get<MovieData>(APIRoute.Promo);
     dispatch(loadPromoMovie(data));
+  } catch (error) {
+    errorHandler(error);
+  }
+});
+
+export const fetchSelectedMovieAction = createAsyncThunk<
+  void,
+  string | undefined,
+  { extra: { api: AxiosInstance }; dispatch: AppDispatch }
+>('MovieData/selectedMovieAction', async (movieId, { extra, dispatch }) => {
+  const { api } = extra;
+  try {
+    const { data } = await api.get<MovieData>(
+      `${APIRoute.SelectedMovie}/${movieId}`,
+    );
+    dispatch(loadSelectedMovie(data));
   } catch (error) {
     errorHandler(error);
   }

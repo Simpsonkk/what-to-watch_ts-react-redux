@@ -5,6 +5,7 @@ export type FilmDataState = {
   movieCatalog: MovieData[],
   promoMovie: MovieData | null,
   isDataLoaded: boolean,
+  selectedMovie: MovieData | null,
 };
 
 export type State = ReturnType<typeof store.getState>;

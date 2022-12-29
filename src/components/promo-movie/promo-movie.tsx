@@ -8,7 +8,10 @@ function PromoMovie() {
 
   return (
     <section className="film-card">
-      <BackgroundImg img={promoBackground!.backgroundImage} title={promoBackground!.name} />
+      <BackgroundImg
+        movieImg={promoBackground!.backgroundImage}
+        movieTitle={promoBackground!.name}
+      />
       <h1 className="visually-hidden">WTW</h1>
       <Header />
       <div className="film-card__wrap">

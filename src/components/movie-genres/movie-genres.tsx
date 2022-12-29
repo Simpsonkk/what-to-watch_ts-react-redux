@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { GENRES } from '../../consts';
 
 type getCurrentGenre = {
@@ -15,13 +16,12 @@ function MovieGenres({getCurrentGenre, currentGenre}: getCurrentGenre) {
             currentGenre === genre && 'catalog__genres-item--active'
           }`}
         >
-          <a
-            href="#"
+          <Link to=''
             onClick={() => getCurrentGenre(genre)}
             className="catalog__genres-link"
           >
             {genre}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

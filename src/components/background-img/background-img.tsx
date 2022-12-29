@@ -1,15 +1,15 @@
 type BackgroundImgProps = {
-  img: string,
-  title: string,
-}
+  movieImg: string;
+  movieTitle: string;
+};
 
-function BackgroundImg({img, title}: BackgroundImgProps): JSX.Element {
+function BackgroundImg({
+  movieImg,
+  movieTitle,
+}: BackgroundImgProps): JSX.Element {
   return (
     <div className="film-card__bg">
-      <img
-        src={img}
-        alt={title}
-      />
+      <img src={movieImg} alt={movieTitle} />
     </div>
   );
 }

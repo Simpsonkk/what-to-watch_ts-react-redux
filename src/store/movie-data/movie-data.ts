@@ -7,11 +7,12 @@ const initialState: FilmDataState = {
   movieCatalog: [],
   promoMovie: null,
   isDataLoaded: false,
+  selectedMovie: null,
 };
 
 export const movieData = createSlice({
   name: NameSpace.Movies,
-  initialState: initialState,
+  initialState,
   reducers: {
     loadMovieCatalog: (state, action: PayloadAction<MovieData[]>) => {
       state.movieCatalog = action.payload;
@@ -20,7 +21,10 @@ export const movieData = createSlice({
     loadPromoMovie: (state, action: PayloadAction<MovieData>) => {
       state.promoMovie = action.payload;
     },
+    loadSelectedMovie: (state, action: PayloadAction<MovieData>) => {
+      state.selectedMovie = action.payload;
+    },
   },
 });
 
-export const { loadMovieCatalog, loadPromoMovie } = movieData.actions;
+export const { loadMovieCatalog, loadPromoMovie, loadSelectedMovie } = movieData.actions;
