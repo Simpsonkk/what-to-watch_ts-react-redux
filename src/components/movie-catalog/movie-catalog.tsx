@@ -27,9 +27,7 @@ function MovieCatalog() {
           .map((movie) => (
             <MovieCard
               key={movie.id}
-              movieId={movie.id}
-              movieImg={movie.previewImage}
-              movieTitle={movie.name}
+              movie={movie}
             />
           ))
           .slice(0, movieAmount)}

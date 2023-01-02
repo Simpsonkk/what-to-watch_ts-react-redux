@@ -1,11 +1,18 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSelectedMovieAction } from '../../store/actions/api-actions';
-import { getCurrentMovie } from '../../store/movie-data/selectors';
+import {
+  fetchMovieReviewsAction,
+  fetchSelectedMovieAction,
+  fetchSimilarMovies
+} from '../../store/actions/api-actions';
+import {
+  getCurrentMovie,
+  getSimilarMovies
+} from '../../store/movie-data/selectors';
 import BackgroundImg from '../background-img/background-img';
-import CatalogLikeThis from '../catalog-like-this/catalog-like-this';
+import SimilarMovies from '../similar-movies/similar-movies';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Loader from '../loader/loader';
@@ -14,12 +21,22 @@ import MovieDescription from '../movie-description/movie-description';
 function MoviePage() {
   const params = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchSelectedMovieAction(params.id));
   }, [dispatch, params.id]);
 
+  useEffect(() => {
+    dispatch(fetchSimilarMovies(params.id));
+  }, [dispatch, params.id]);
+
+  useEffect(() => {
+    dispatch(fetchMovieReviewsAction(params.id));
+  }, [dispatch, params.id]);
+
   const currentMovie = useAppSelector(getCurrentMovie);
+  const similarMovies = useAppSelector(getSimilarMovies);
 
   if (!currentMovie) {
     return <Loader />;
@@ -44,6 +61,7 @@ function MoviePage() {
               </p>
               <div className="film-card__buttons">
                 <button
+                  onClick={() => navigate(`/player/${params.id}`)}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -83,7 +101,7 @@ function MoviePage() {
         </div>
       </section>
       <div className="page-content">
-        <CatalogLikeThis />
+        <SimilarMovies similarMovies={similarMovies.slice(0, 4)} />
         <Footer />
       </div>
     </>

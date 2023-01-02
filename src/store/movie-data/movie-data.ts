@@ -1,13 +1,16 @@
+import { Comment } from './../../types/comment.model';
 import { NameSpace } from './../../consts';
-import { FilmDataState } from './../../types/state.model';
+import { MovieDataState } from './../../types/state.model';
 import { MovieData } from './../../types/movie.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: FilmDataState = {
+const initialState: MovieDataState = {
   movieCatalog: [],
   promoMovie: null,
   isDataLoaded: false,
   selectedMovie: null,
+  movieReviews: [],
+  similarMovies: [],
 };
 
 export const movieData = createSlice({
@@ -24,7 +27,19 @@ export const movieData = createSlice({
     loadSelectedMovie: (state, action: PayloadAction<MovieData>) => {
       state.selectedMovie = action.payload;
     },
+    loadMovieReviews: (state, action: PayloadAction<Comment[]>) => {
+      state.movieReviews = action.payload;
+    },
+    loadSimilarMovies: (state, action: PayloadAction<MovieData[]>) => {
+      state.similarMovies = action.payload;
+    },
   },
 });
 
-export const { loadMovieCatalog, loadPromoMovie, loadSelectedMovie } = movieData.actions;
+export const {
+  loadMovieCatalog,
+  loadPromoMovie,
+  loadSelectedMovie,
+  loadMovieReviews,
+  loadSimilarMovies,
+} = movieData.actions;

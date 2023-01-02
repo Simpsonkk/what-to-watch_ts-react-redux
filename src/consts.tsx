@@ -17,7 +17,8 @@ export enum HttpCode {
 export enum APIRoute {
   Movies = '/films',
   Promo = '/promo',
-  SelectedMovie = '/films'
+  Comments = '/comments',
+  SimilarMovies = '/similar'
 }
 
 export enum NameSpace {
@@ -25,9 +26,9 @@ export enum NameSpace {
 }
 
 export enum MovieTabs {
-  Overview = 'Overview',
-  Details = 'Details',
-  Reviews = 'Reviews'
+  Overview,
+  Details,
+  Reviews,
 }
 
 export const DEFAULT_GENRE = 'All genres';

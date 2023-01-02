@@ -1,28 +1,32 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MovieData } from '../../types/movie.model';
+import VideoPreview from '../video-preview/video-preview';
 
 type MovieCardProps = {
-  movieImg: string,
-  movieTitle: string,
-  movieId: number,
+  movie: MovieData
 };
 
-function MovieCard({ movieImg, movieTitle, movieId }: MovieCardProps) {
+function MovieCard({ movie }: MovieCardProps) {
+  const [videoPreview, setVideoPreview] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <article className="small-film-card catalog__films-card">
-      <div
-        onClick={() => navigate(`/films/${movieId}`)}
-        className="small-film-card__image"
-      >
-        <img src={movieImg} alt={movieTitle} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={AppRoute.Movie} className="small-film-card__link">
-          {movieTitle}
-        </Link>
-      </h3>
+    <article
+      onMouseEnter={() => setVideoPreview(true)}
+      onMouseLeave={() => setVideoPreview(false)}
+      onClick={() => navigate(`/films/${movie.id}`)}
+      className="small-film-card catalog__films-card"
+    >
+      {videoPreview ? (
+        <VideoPreview movieVideoLink={movie.videoLink}/>
+      ) : (
+        <div className="small-film-card__image">
+          <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
+        </div>
+      )}
+
+      <h3 className="small-film-card__title">{movie.name}</h3>
     </article>
   );
 }

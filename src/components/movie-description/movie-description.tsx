@@ -6,59 +6,46 @@ import MovieOverviewTab from '../movie-overview-tab/movie-overview-tab';
 import MovieReviewsTab from '../movie-reviews-tab/movie-reviews-tab';
 
 type CurrentMovieProps = {
-  currentMovie: MovieData
-}
+  currentMovie: MovieData;
+};
 
-function MovieDescription({currentMovie}: CurrentMovieProps) {
-  const [currentTab, setCurrentTab] = useState<string>(MovieTabs.Overview);
-
-  const getOverviewTab = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentTab(MovieTabs.Overview);
-  };
-
-  const getDetailsTab = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentTab(MovieTabs.Details);
-  };
-
-  const getReviewsTab = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentTab(MovieTabs.Reviews);
-  };
+function MovieDescription({ currentMovie }: CurrentMovieProps) {
+  const [currentTab, setCurrentTab] = useState<MovieTabs>(MovieTabs.Overview);
 
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className="film-nav__item film-nav__item--active">
-            <a onClick={getOverviewTab} href="#" className="film-nav__link">
-              {MovieTabs.Overview}
-            </a>
-          </li>
-          <li className="film-nav__item">
-            <a
-              onClick={getDetailsTab}
-              href="#"
-              className="film-nav__link"
-            >
-              {MovieTabs.Details}
-            </a>
-          </li>
-          <li className="film-nav__item">
-            <a
-              onClick={getReviewsTab}
-              href="#"
-              className="film-nav__link"
-            >
-              {MovieTabs.Reviews}
-            </a>
-          </li>
+          {Object.keys(MovieTabs)
+            .filter((movieTab) => isNaN(+movieTab))
+            .map((movieTab) => (
+              <li
+                key={movieTab}
+                className={`film-nav__item ${
+                  currentTab === MovieTabs[movieTab] && 'film-nav__item--active'
+                }`}
+              >
+                <a
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault();
+                    setCurrentTab(MovieTabs[movieTab]);
+                  }}
+                  href="#"
+                  className="film-nav__link"
+                >
+                  {movieTab}
+                </a>
+              </li>
+            ))}
         </ul>
       </nav>
-      {currentTab === MovieTabs.Overview && <MovieOverviewTab currentMovie={currentMovie} />}
-      {currentTab === MovieTabs.Details && <MovieDetailsTab currentMovie={currentMovie} />}
-      {currentTab === MovieTabs.Reviews && <MovieReviewsTab currentMovie={currentMovie} />}
+      {currentTab === MovieTabs.Overview && (
+        <MovieOverviewTab currentMovie={currentMovie} />
+      )}
+      {currentTab === MovieTabs.Details && (
+        <MovieDetailsTab currentMovie={currentMovie} />
+      )}
+      {currentTab === MovieTabs.Reviews && <MovieReviewsTab />}
     </div>
   );
 }

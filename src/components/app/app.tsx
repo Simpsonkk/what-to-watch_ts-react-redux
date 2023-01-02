@@ -1,6 +1,5 @@
-// import MoviePage from '../movie-page/movie-page';
 import { useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -16,37 +15,6 @@ import MyMovieList from '../my-movie-list/my-movie-list';
 import NotFoundPage from '../not-found-page/not-found.page';
 import SignIn from '../sign-in/sign-in';
 import VideoPlayer from '../video-player/video-player';
-
-const routing = createBrowserRouter([
-  {
-    path: AppRoute.Main,
-    element: <MainPage />,
-  },
-  {
-    path: AppRoute.AddReview,
-    element: <AddReview />,
-  },
-  {
-    path: AppRoute.Movie,
-    element: <MoviePage />,
-  },
-  {
-    path: AppRoute.MyList,
-    element: <MyMovieList />,
-  },
-  {
-    path: AppRoute.Player,
-    element: <VideoPlayer />,
-  },
-  {
-    path: AppRoute.SignIn,
-    element: <SignIn />,
-  },
-  {
-    path: AppRoute.NotFound,
-    element: <NotFoundPage />,
-  },
-]);
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -65,7 +33,17 @@ function App(): JSX.Element {
     return <Loader />;
   }
 
-  return <RouterProvider router={routing} />;
+  return (
+    <Routes>
+      <Route path={AppRoute.Main} element={<MainPage />} />
+      <Route path={AppRoute.SignIn} element={<SignIn />} />
+      <Route path={AppRoute.MyList} element={<MyMovieList />} />
+      <Route path={AppRoute.Movie} element={<MoviePage />} />
+      <Route path={AppRoute.AddReview} element={<AddReview />} />
+      <Route path={AppRoute.Player} element={<VideoPlayer />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
 }
 
 export default App;

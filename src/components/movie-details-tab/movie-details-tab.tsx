@@ -28,11 +28,12 @@ function MovieDetailsTab({ currentMovie }: MovieDetailsTabProps) {
           </span>
         </p>
       </div>
-
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{formatMovieRunTime(currentMovie.runTime)}</span>
+          <span className="film-card__details-value">
+            {formatMovieRunTime(currentMovie.runTime)}
+          </span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -40,7 +41,9 @@ function MovieDetailsTab({ currentMovie }: MovieDetailsTabProps) {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{currentMovie.released}</span>
+          <span className="film-card__details-value">
+            {currentMovie.released}
+          </span>
         </p>
       </div>
     </div>
