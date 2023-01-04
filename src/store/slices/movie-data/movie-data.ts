@@ -1,7 +1,7 @@
-import { Comment } from './../../types/comment.model';
-import { NameSpace } from './../../consts';
-import { MovieDataState } from './../../types/state.model';
-import { MovieData } from './../../types/movie.model';
+import { Comment } from '../../../types/comment.model';
+import { NameSpace } from '../../../consts';
+import { MovieDataState } from '../../../types/state.model';
+import { MovieData } from '../../../types/movie.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: MovieDataState = {

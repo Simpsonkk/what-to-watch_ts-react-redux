@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DEFAULT_GENRE, INITIAL_MOVIE_AMOUNT } from '../../consts';
 import { useAppSelector } from '../../hooks';
-import { getMovieCatalog } from '../../store/movie-data/selectors';
+import { getMovieCatalog } from '../../store/slices/movie-data/selectors';
 import { filterMovie } from '../../utils/utils';
 import MovieCard from '../movie-card/movie-card';
 import MovieGenres from '../movie-genres/movie-genres';
@@ -24,12 +24,7 @@ function MovieCatalog() {
       <MovieGenres getCurrentGenre={getCurrentGenre} currentGenre={genre} />
       <div className="catalog__films-list">
         {filteredMovie
-          .map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-            />
-          ))
+          .map((movie) => <MovieCard key={movie.id} movie={movie} />)
           .slice(0, movieAmount)}
       </div>
       <div

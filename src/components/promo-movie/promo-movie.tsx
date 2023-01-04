@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getPromoMovie } from '../../store/movie-data/selectors';
+import { getPromoMovie } from '../../store/slices/movie-data/selectors';
 import BackgroundImg from '../background-img/background-img';
 import Header from '../header/header';
 

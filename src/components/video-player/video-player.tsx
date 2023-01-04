@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSelectedMovieAction } from '../../store/actions/api-actions';
-import { getCurrentMovie } from '../../store/movie-data/selectors';
+import { getCurrentMovie } from '../../store/slices/movie-data/selectors';
 import Loader from '../loader/loader';
 
 function VideoPlayer() {
@@ -36,7 +36,9 @@ function VideoPlayer() {
 
   const getCurrentVideoTime = (fullTime: number, currentTime: number) => {
     const timeLeft = fullTime - currentTime;
-    return `${Math.floor(timeLeft / 60)  }:${  (`0${  Math.floor(timeLeft % 60)}`).slice(-2)}`;
+    return `${Math.floor(timeLeft / 60)}:${`0${Math.floor(
+      timeLeft % 60,
+    )}`.slice(-2)}`;
   };
 
   const handlePauseClick = () => {
@@ -81,23 +83,42 @@ function VideoPlayer() {
               max="100"
             >
             </progress>
-            <div className="player__toggler" style={{left: `${videoProgress}%`}}>
+            <div
+              className="player__toggler"
+              style={{ left: `${videoProgress}%` }}
+            >
               Toggler
             </div>
           </div>
-          <div className="player__time-value"> - {videoDuration && videoCurrentTime ? getCurrentVideoTime(videoDuration, videoCurrentTime) : '0:00:00'}</div>
+          <div className="player__time-value">
+            {' '}
+            -{' '}
+            {videoDuration && videoCurrentTime
+              ? getCurrentVideoTime(videoDuration, videoCurrentTime)
+              : '0:00:00'}
+          </div>
         </div>
 
         <div className="player__controls-row">
           {playing && videoProgress !== 100 ? (
-            <button onClick={handlePauseClick} type="button" className="player__play" data-testid='player-pause'>
+            <button
+              onClick={handlePauseClick}
+              type="button"
+              className="player__play"
+              data-testid="player-pause"
+            >
               <svg viewBox="0 0 14 21" width="14" height="21">
                 <use xlinkHref="#pause"></use>
               </svg>
               <span>Pause</span>
             </button>
           ) : (
-            <button onClick={handlePlayClick} type="button" className="player__play" data-testid='play'>
+            <button
+              onClick={handlePlayClick}
+              type="button"
+              className="player__play"
+              data-testid="play"
+            >
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>
               </svg>
@@ -106,7 +127,11 @@ function VideoPlayer() {
           )}
           <div className="player__name">{currentMovie.name}</div>
 
-          <button onClick={() => videoPlayer.current.requestFullscreen()} type="button" className="player__full-screen">
+          <button
+            onClick={() => videoPlayer.current.requestFullscreen()}
+            type="button"
+            className="player__full-screen"
+          >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

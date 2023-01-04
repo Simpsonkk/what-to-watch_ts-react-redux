@@ -18,17 +18,26 @@ export enum APIRoute {
   Movies = '/films',
   Promo = '/promo',
   Comments = '/comments',
-  SimilarMovies = '/similar'
+  SimilarMovies = '/similar',
+  Login = '/login',
+  Logout = '/logout'
 }
 
 export enum NameSpace {
   Movies = 'movieData',
+  User = 'userProcess'
 }
 
 export enum MovieTabs {
   Overview,
   Details,
   Reviews,
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN'
 }
 
 export const DEFAULT_GENRE = 'All genres';

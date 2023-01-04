@@ -10,7 +10,7 @@ import {
 import {
   getCurrentMovie,
   getSimilarMovies
-} from '../../store/movie-data/selectors';
+} from '../../store/slices/movie-data/selectors';
 import BackgroundImg from '../background-img/background-img';
 import SimilarMovies from '../similar-movies/similar-movies';
 import Footer from '../footer/footer';

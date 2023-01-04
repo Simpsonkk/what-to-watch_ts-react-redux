@@ -1,12 +1,31 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../consts';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/actions/api-actions';
+import { UserData } from '../../types/user.model';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 
 function SignIn() {
+  const [userAccountData, setUserAccountData] = useState<UserData>({
+    email: '',
+    password: '',
+  });
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginAction(userAccountData));
+    navigate(AppRoute.Main);
+  };
+
   return (
     <div className="user-page">
       <Header />
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form onSubmit={handleSubmit} action="#" className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -15,6 +34,12 @@ function SignIn() {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                value={userAccountData.email}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setUserAccountData({
+                    ...userAccountData,
+                    email: e.target.value,
+                  })}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -30,6 +55,12 @@ function SignIn() {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                value={userAccountData.password}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setUserAccountData({
+                    ...userAccountData,
+                    password: e.target.value,
+                  })}
               />
               <label
                 className="sign-in__label visually-hidden"

@@ -1,18 +1,21 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AuthorizationStatus } from '../../consts';
+import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/slices/user-process/selector';
+import HeaderAuth from '../header-auth/header-auth';
+import HeaderNoAuth from '../header-no-auth/header-no-auth';
 import Logo from '../logo/logo';
 
 function Header() {
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
   return (
     <header className="page-header film-card__head">
       <Logo />
-      {/* fix when add auth */}
-      <div className="user-block">
-        <Link to={AppRoute.SignIn} className="user-block__link">
-          Sign in
-        </Link>
-      </div>
-      {/* fix when add auth */}
+      {authStatus === AuthorizationStatus.Auth ? (
+        <HeaderAuth />
+      ) : (
+        <HeaderNoAuth />
+      )}
     </header>
   );
 }

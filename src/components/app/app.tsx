@@ -3,10 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
+  checkAuthStatusAction,
   fetchMovieCatalogAction,
   fetchPromoMovieAction
 } from '../../store/actions/api-actions';
-import { getLoadedDataStatus } from '../../store/movie-data/selectors';
+import { getLoadedDataStatus } from '../../store/slices/movie-data/selectors';
 import AddReview from '../add-review/add-review';
 import Loader from '../loader/loader';
 import MainPage from '../main-page/main-page';
@@ -21,6 +22,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoMovieAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(checkAuthStatusAction());
   }, [dispatch]);
 
   useEffect(() => {

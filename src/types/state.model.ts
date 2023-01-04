@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from './../consts';
 import { Comment } from './comment.model';
 import { store } from './../store/store';
 import { MovieData } from './movie.model';
@@ -10,6 +11,10 @@ export type MovieDataState = {
   movieReviews: Comment[];
   similarMovies: MovieData[];
 };
+
+export type UserProcessState = {
+  AuthorizationStatus: AuthorizationStatus
+}
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getMovieReviews } from '../../store/movie-data/selectors';
+import { getMovieReviews } from '../../store/slices/movie-data/selectors';
 import { formatDate } from '../../utils/utils';
 
 function MovieReviewsTab() {
@@ -16,7 +16,10 @@ function MovieReviewsTab() {
 
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date" dateTime={review.date.substring(0, 10)}>
+                  <time
+                    className="review__date"
+                    dateTime={review.date.substring(0, 10)}
+                  >
                     {formatDate(review.date)}
                   </time>
                 </footer>
