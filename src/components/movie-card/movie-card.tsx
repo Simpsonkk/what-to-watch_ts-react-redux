@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { APIRoute } from '../../consts';
 import { MovieData } from '../../types/movie.model';
 import VideoPreview from '../video-preview/video-preview';
 
@@ -15,7 +16,7 @@ function MovieCard({ movie }: MovieCardProps) {
     <article
       onMouseEnter={() => setVideoPreview(true)}
       onMouseLeave={() => setVideoPreview(false)}
-      onClick={() => navigate(`/films/${movie.id}`)}
+      onClick={() => navigate(`${APIRoute.Movies}/${movie.id}`)}
       className="small-film-card catalog__films-card"
     >
       {videoPreview ? (

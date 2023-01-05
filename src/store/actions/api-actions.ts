@@ -2,7 +2,7 @@ import { saveUserAvatarUrl, removeUserAvatarUrl } from './../../services/user-av
 import { AuthInfo } from './../../types/auth-info.model';
 import { saveToken, removeToken } from './../../services/token';
 import { UserData } from './../../types/user.model';
-import { Comment } from './../../types/comment.model';
+import { CommentGet } from './../../types/comment.model';
 import { AppDispatch } from './../../types/state.model';
 import { AxiosInstance } from 'axios';
 import { errorHandler } from './../../services/errorHandler';
@@ -63,7 +63,7 @@ export const fetchMovieReviewsAction = createAsyncThunk<
   { extra: { api: AxiosInstance }; dispatch: AppDispatch }
 >('movieData/movieReviews', async (movieId, { extra: { api }, dispatch }) => {
   try {
-    const { data } = await api.get<Comment[]>(
+    const { data } = await api.get<CommentGet[]>(
       `${APIRoute.Comments}/${movieId}`,
     );
     dispatch(loadMovieReviews(data));
@@ -122,7 +122,7 @@ export const logoutAction = createAsyncThunk<
   { extra: { api: AxiosInstance }; dispatch: AppDispatch }
 >('userProcess/logout', async (_, { extra: {api}, dispatch }) => {
   try {
-    await api.delete(APIRoute.Logout);
+    api.delete(APIRoute.Logout);
     removeToken();
     removeUserAvatarUrl();
     dispatch(loadAuthorizationStatus(AuthorizationStatus.NoAuth));

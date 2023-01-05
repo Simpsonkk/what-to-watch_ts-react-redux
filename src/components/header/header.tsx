@@ -5,14 +5,18 @@ import HeaderAuth from '../header-auth/header-auth';
 import HeaderNoAuth from '../header-no-auth/header-no-auth';
 import Logo from '../logo/logo';
 
-function Header() {
+type HeaderProps = {
+  breadCrumbs?: boolean;
+};
+
+function Header({ breadCrumbs }: HeaderProps): JSX.Element {
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <header className="page-header film-card__head">
       <Logo />
       {authStatus === AuthorizationStatus.Auth ? (
-        <HeaderAuth />
+        <HeaderAuth breadCrumbs={breadCrumbs} />
       ) : (
         <HeaderNoAuth />
       )}

@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from './../consts';
-import { Comment } from './comment.model';
+import { CommentGet } from './comment.model';
 import { store } from './../store/store';
 import { MovieData } from './movie.model';
 
@@ -8,7 +8,7 @@ export type MovieDataState = {
   promoMovie: MovieData | null;
   isDataLoaded: boolean;
   selectedMovie: MovieData | null;
-  movieReviews: Comment[];
+  movieReviews: CommentGet[];
   similarMovies: MovieData[];
 };
 

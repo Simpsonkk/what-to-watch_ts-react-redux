@@ -20,7 +20,8 @@ export enum APIRoute {
   Comments = '/comments',
   SimilarMovies = '/similar',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Review = 'review',
 }
 
 export enum NameSpace {
@@ -54,3 +55,5 @@ export const GENRES = [
 ];
 
 export const INITIAL_MOVIE_AMOUNT = 8;
+
+export const RATING_STARS = new Array(10).fill(null).map((_, i) => i + 1).reverse();

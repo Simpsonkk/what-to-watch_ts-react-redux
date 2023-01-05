@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { APIRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchMovieReviewsAction,
@@ -79,7 +79,7 @@ function MoviePage() {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={AppRoute.AddReview} className="btn film-card__button">
+                <Link to={`${APIRoute.Movies}/${currentMovie.id}/${APIRoute.Review}`} className="btn film-card__button">
                   Add review
                 </Link>
               </div>

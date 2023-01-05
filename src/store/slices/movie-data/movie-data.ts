@@ -1,4 +1,4 @@
-import { Comment } from '../../../types/comment.model';
+import { CommentGet } from '../../../types/comment.model';
 import { NameSpace } from '../../../consts';
 import { MovieDataState } from '../../../types/state.model';
 import { MovieData } from '../../../types/movie.model';
@@ -27,7 +27,7 @@ export const movieData = createSlice({
     loadSelectedMovie: (state, action: PayloadAction<MovieData>) => {
       state.selectedMovie = action.payload;
     },
-    loadMovieReviews: (state, action: PayloadAction<Comment[]>) => {
+    loadMovieReviews: (state, action: PayloadAction<CommentGet[]>) => {
       state.movieReviews = action.payload;
     },
     loadSimilarMovies: (state, action: PayloadAction<MovieData[]>) => {
