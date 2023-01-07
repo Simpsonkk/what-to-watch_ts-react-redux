@@ -17,3 +17,8 @@ export type MovieData = {
   starring: string[];
   videoLink: string;
 };
+
+export type FavoriteMovie = {
+  movieId: number;
+  isFavorite: number;
+};

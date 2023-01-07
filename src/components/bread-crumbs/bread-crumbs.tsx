@@ -19,7 +19,7 @@ function AddReviewBreadCrumbs() {
         </li>
         <li className="breadcrumbs__item">
           <Link
-            to={`${APIRoute.Movies}/${currentMovie!.id}/${APIRoute.Review}`}
+            to={`${APIRoute.Movies}/${currentMovie!.id}${APIRoute.Review}`}
             className="breadcrumbs__link"
           >
             Add review

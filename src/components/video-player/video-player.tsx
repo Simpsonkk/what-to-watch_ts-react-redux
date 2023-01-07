@@ -24,15 +24,12 @@ function VideoPlayer() {
   useEffect(() => {
     if (videoPlayer.current) {
       setVideoDuration(videoPlayer.current.duration);
+      videoPlayer.current.ontimeupdate = () => {
+        setVideoCurrentTime(videoPlayer.current.currentTime);
+        setVideoProgress((videoPlayer.current.currentTime / videoDuration) * 100);
+      };
     }
-  }, [playing]);
-
-  if (videoPlayer.current) {
-    videoPlayer.current.ontimeupdate = () => {
-      setVideoCurrentTime(videoPlayer.current.currentTime);
-      setVideoProgress((videoPlayer.current.currentTime / videoDuration) * 100);
-    };
-  }
+  }, [playing, videoDuration]);
 
   const getCurrentVideoTime = (fullTime: number, currentTime: number) => {
     const timeLeft = fullTime - currentTime;
@@ -51,6 +48,11 @@ function VideoPlayer() {
     setPlaying(true);
   };
 
+  const handleExitClick = () => {
+    videoPlayer.current.pause();
+    navigate(-1);
+  };
+
   if (!currentMovie) {
     return <Loader />;
   }
@@ -67,7 +69,7 @@ function VideoPlayer() {
       >
       </video>
       <button
-        onClick={() => navigate(-1)}
+        onClick={handleExitClick}
         type="button"
         className="player__exit"
       >

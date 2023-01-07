@@ -10,6 +10,7 @@ export type CommentGet = {
 };
 
 export type CommentPost = {
-  rating: number,
+  rating: string,
   comment: string,
+  movieId?: string,
 };

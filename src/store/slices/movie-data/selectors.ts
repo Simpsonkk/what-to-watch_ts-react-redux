@@ -15,3 +15,5 @@ export const getMovieReviews = (state: State): CommentGet[] =>
   state[NameSpace.Movies].movieReviews;
 export const getSimilarMovies = (state: State): MovieData[] =>
   state[NameSpace.Movies].similarMovies;
+export const getFavoriteMovies = (state: State): MovieData[] =>
+  state[NameSpace.Movies].favoriteMovies;

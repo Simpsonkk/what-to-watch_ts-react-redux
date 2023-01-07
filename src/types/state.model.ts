@@ -4,12 +4,13 @@ import { store } from './../store/store';
 import { MovieData } from './movie.model';
 
 export type MovieDataState = {
-  movieCatalog: MovieData[];
-  promoMovie: MovieData | null;
-  isDataLoaded: boolean;
-  selectedMovie: MovieData | null;
-  movieReviews: CommentGet[];
-  similarMovies: MovieData[];
+  movieCatalog: MovieData[],
+  promoMovie: MovieData | null,
+  isDataLoaded: boolean,
+  selectedMovie: MovieData | null,
+  movieReviews: CommentGet[]
+  similarMovies: MovieData[],
+  favoriteMovies: MovieData[],
 };
 
 export type UserProcessState = {

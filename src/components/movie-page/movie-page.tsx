@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { APIRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
+  changeFavoriteMovieAction,
   fetchMovieReviewsAction,
   fetchSelectedMovieAction,
   fetchSimilarMovies
@@ -38,6 +39,14 @@ function MoviePage() {
   const currentMovie = useAppSelector(getCurrentMovie);
   const similarMovies = useAppSelector(getSimilarMovies);
 
+  const changeFavoriteMovie = () =>
+    dispatch(
+      changeFavoriteMovieAction({
+        movieId: currentMovie!.id,
+        isFavorite: Number(!currentMovie!.isFavorite),
+      }),
+    );
+
   if (!currentMovie) {
     return <Loader />;
   }
@@ -61,7 +70,7 @@ function MoviePage() {
               </p>
               <div className="film-card__buttons">
                 <button
-                  onClick={() => navigate(`/player/${params.id}`)}
+                  onClick={() => navigate(`${APIRoute.Player}/${params.id}`)}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -71,6 +80,7 @@ function MoviePage() {
                   <span>Play</span>
                 </button>
                 <button
+                  onClick={changeFavoriteMovie}
                   className="btn btn--list film-card__button"
                   type="button"
                 >
@@ -79,7 +89,10 @@ function MoviePage() {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`${APIRoute.Movies}/${currentMovie.id}/${APIRoute.Review}`} className="btn film-card__button">
+                <Link
+                  to={`${APIRoute.Movies}/${currentMovie.id}${APIRoute.Review}`}
+                  className="btn film-card__button"
+                >
                   Add review
                 </Link>
               </div>

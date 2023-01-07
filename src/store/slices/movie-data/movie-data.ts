@@ -11,6 +11,7 @@ const initialState: MovieDataState = {
   selectedMovie: null,
   movieReviews: [],
   similarMovies: [],
+  favoriteMovies: [],
 };
 
 export const movieData = createSlice({
@@ -33,6 +34,9 @@ export const movieData = createSlice({
     loadSimilarMovies: (state, action: PayloadAction<MovieData[]>) => {
       state.similarMovies = action.payload;
     },
+    loadFavoriteMovies: (state, action: PayloadAction<MovieData[]>) => {
+      state.favoriteMovies = action.payload;
+    },
   },
 });
 
@@ -42,4 +46,5 @@ export const {
   loadSelectedMovie,
   loadMovieReviews,
   loadSimilarMovies,
+  loadFavoriteMovies,
 } = movieData.actions;
