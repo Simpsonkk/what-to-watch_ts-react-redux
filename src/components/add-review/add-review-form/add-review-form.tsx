@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   APIRoute,
@@ -39,10 +39,13 @@ function AddReviewForm() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setReview({ ...review, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
     if (review.comment.length >= MIN_COMMENT_LENGTH && review.rating !== '0') {
       setReviewValidation(false);
     }
-  };
+  }, [review]);
 
   return (
     <div className="add-review">

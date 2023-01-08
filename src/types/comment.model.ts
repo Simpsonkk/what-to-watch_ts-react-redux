@@ -13,4 +13,5 @@ export type CommentPost = {
   rating: string,
   comment: string,
   movieId?: string,
+  validation?: boolean,
 };

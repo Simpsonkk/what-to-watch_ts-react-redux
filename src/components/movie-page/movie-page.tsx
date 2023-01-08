@@ -23,6 +23,8 @@ function MoviePage() {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const currentMovie = useAppSelector(getCurrentMovie);
+  const similarMovies = useAppSelector(getSimilarMovies);
 
   useEffect(() => {
     dispatch(fetchSelectedMovieAction(params.id));
@@ -36,16 +38,14 @@ function MoviePage() {
     dispatch(fetchMovieReviewsAction(params.id));
   }, [dispatch, params.id]);
 
-  const currentMovie = useAppSelector(getCurrentMovie);
-  const similarMovies = useAppSelector(getSimilarMovies);
-
-  const changeFavoriteMovie = () =>
+  const changeFavoriteMovie = () => {
     dispatch(
       changeFavoriteMovieAction({
         movieId: currentMovie!.id,
         isFavorite: Number(!currentMovie!.isFavorite),
       }),
     );
+  };
 
   if (!currentMovie) {
     return <Loader />;
@@ -85,7 +85,7 @@ function MoviePage() {
                   type="button"
                 >
                   <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
+                    <use xlinkHref={currentMovie.isFavorite ? '#in-list' : '#add'}></use>
                   </svg>
                   <span>My list</span>
                 </button>

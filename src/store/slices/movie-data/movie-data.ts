@@ -6,7 +6,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: MovieDataState = {
   movieCatalog: [],
-  promoMovie: null,
   isDataLoaded: false,
   selectedMovie: null,
   movieReviews: [],
@@ -21,9 +20,6 @@ export const movieData = createSlice({
     loadMovieCatalog: (state, action: PayloadAction<MovieData[]>) => {
       state.movieCatalog = action.payload;
       state.isDataLoaded = true;
-    },
-    loadPromoMovie: (state, action: PayloadAction<MovieData>) => {
-      state.promoMovie = action.payload;
     },
     loadSelectedMovie: (state, action: PayloadAction<MovieData>) => {
       state.selectedMovie = action.payload;
@@ -42,7 +38,6 @@ export const movieData = createSlice({
 
 export const {
   loadMovieCatalog,
-  loadPromoMovie,
   loadSelectedMovie,
   loadMovieReviews,
   loadSimilarMovies,

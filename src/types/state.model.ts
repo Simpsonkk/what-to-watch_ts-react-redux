@@ -5,7 +5,7 @@ import { MovieData } from './movie.model';
 
 export type MovieDataState = {
   movieCatalog: MovieData[],
-  promoMovie: MovieData | null,
+  // promoMovie: MovieData | null,
   isDataLoaded: boolean,
   selectedMovie: MovieData | null,
   movieReviews: CommentGet[]

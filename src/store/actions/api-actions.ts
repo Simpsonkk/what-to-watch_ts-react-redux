@@ -16,7 +16,6 @@ import {
   loadFavoriteMovies,
   loadMovieCatalog,
   loadMovieReviews,
-  loadPromoMovie,
   loadSelectedMovie,
   loadSimilarMovies
 } from '../slices/movie-data/movie-data';
@@ -30,19 +29,6 @@ export const fetchMovieCatalogAction = createAsyncThunk<
   try {
     const { data } = await api.get<MovieData[]>(APIRoute.Movies);
     dispatch(loadMovieCatalog(data));
-  } catch (error) {
-    errorHandler(error);
-  }
-});
-
-export const fetchPromoMovieAction = createAsyncThunk<
-  void,
-  undefined,
-  { extra: { api: AxiosInstance }; dispatch: AppDispatch }
->('movieData/fetchPromoMovie', async (_, { extra: { api }, dispatch }) => {
-  try {
-    const { data } = await api.get<MovieData>(APIRoute.Promo);
-    dispatch(loadPromoMovie(data));
   } catch (error) {
     errorHandler(error);
   }
@@ -159,6 +145,19 @@ export const addReviewAction = createAsyncThunk<
     }
   });
 
+export const fetchPromoMovieAction = createAsyncThunk<
+  void,
+  undefined,
+  { extra: { api: AxiosInstance }; dispatch: AppDispatch }
+>('movieData/fetchPromoMovie', async (_, { extra: { api }, dispatch }) => {
+  try {
+    const { data } = await api.get<MovieData>(APIRoute.Promo);
+    dispatch(loadSelectedMovie(data));
+  } catch (error) {
+    errorHandler(error);
+  }
+});
+
 export const fetchFavoriteMoviesAction = createAsyncThunk<
   void,
   undefined,
@@ -178,7 +177,8 @@ export const changeFavoriteMovieAction = createAsyncThunk<
   { extra: { api: AxiosInstance }; dispatch: AppDispatch }
 >('movieData/favoriteMovie', async ({isFavorite, movieId}, { extra: { api }, dispatch }) => {
   try {
-    await api.post(`${APIRoute.Favorite}/${movieId}/${isFavorite}`);
+    const { data } = await api.post(`${APIRoute.Favorite}/${movieId}/${isFavorite}`);
+    dispatch(loadSelectedMovie(data));
     dispatch(fetchFavoriteMoviesAction());
   } catch (error) {
     errorHandler(error);
